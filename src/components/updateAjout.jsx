@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import UpdateVoiture from './updateVoiture';
 import OtherVoiture from './otherVoiture'
+// import Updateassureur from './updateassureur'
+import UpdateContrat from './updateContrat'
 
 const UpdateAjout = (props) => {
 
@@ -17,6 +19,16 @@ const UpdateAjout = (props) => {
     const [visited, setVisited] = useState(true)
     const [adresse, setAdresse] = useState("")
     const [couleur, setCouleur] = useState("")
+    // const [asssuranceAgency, setAsssuranceAgency] = useState("")
+    // const [asssuranceAgencyMother, setAsssuranceAgencyMother] = useState("")
+    // const [asssuranceAddress, setAsssuranceAddress] = useState("")
+    // const [asssuranceManager, setAsssuranceManager] = useState("")
+    // const [asssurancePhone, setAsssurancePhone] = useState(0)
+    const [contratStart, setContratStart] = useState(null)
+    const [contratExpire, setContratExpire] = useState(null)
+    const [contratDuration, setContratDuration] = useState("")
+    const [onpause, setOnpause] = useState(false)
+    const [naissance, setNaissance] = useState(null)
     // const [grey_card, setGrey_card] = useState("")
     const [filename, setFilename] = useState("")
     const [addCarTab, setAddCarTab] = useState([])
@@ -34,7 +46,7 @@ const UpdateAjout = (props) => {
         event.preventDefault()
         // let formData = new FormData()
         // formData.append('uploadedFile', grey_card)
-        // axios.post('users/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setFilename(res.data))
+        // axios.post('assureur/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setFilename(res.data))
         // console.log(filename)
         let cardata = {
             name: carname,
@@ -52,6 +64,21 @@ const UpdateAjout = (props) => {
     const handleSubmit = (event) => {
 
         event.preventDefault()
+        // let assuranceData = {
+        //     id: userEdit.cars.assureurs.id,
+        //     agency: asssuranceAgency,
+        //     ageny_mother: asssuranceAgencyMother,
+        //     address: asssuranceAddress,
+        //     manager: asssuranceManager,
+        //     phone_number: asssurancePhone
+        // }
+        let contratData ={
+            id: userEdit.cars.contrats.id,
+            start: contratStart,
+            end: contratExpire,
+            duration: contratDuration,
+            onPause: onpause
+        }
         let cardata = {
             name: carname,
             color: couleur,
@@ -59,7 +86,9 @@ const UpdateAjout = (props) => {
             date_of_visit: date_of_visit,
             date_of_next_visit: date_of_next_visit,
             visited: visited,
-            grey_card:filename
+            grey_card:filename,
+            // assurer: assuranceData,
+            contrat: contratData
         }
 
         let updateCarData = [...carData, cardata]
@@ -72,9 +101,10 @@ const UpdateAjout = (props) => {
             phone_number: phone_number,
             profession: profession,
             adresse: adresse,
+            birthday: naissance,
             cars: updateCarData
         }]
-        axios.put('users/', data).then(res =>{
+        axios.put('assureur/', data).then(res =>{
             if (res.data) {
                 props.history.push({
                 pathname: '/home'
@@ -142,10 +172,21 @@ const UpdateAjout = (props) => {
                                             id="example-text-input"  />
                                     </div>
                                 </div>
-                                {userEdit.cars.map((item) => (<UpdateVoiture setCarname={setCarname} setCouleur={setCouleur} setMatriculation={setMatriculation}
+                                <div class="mb-3 row">
+                                    <label for="example-text-input" class="col-md-2 col-form-label">Date de Naissance</label>
+                                    <div class="col-md-10">
+                                        <input onChange={(e) => setNaissance(e.target.value)} class="form-control" type="date" placeholder="veuillez entrer l'adresse.."
+                                            id="example-text-input" />
+                                    </div>
+                                </div>
+                                {userEdit.cars.map((item) => (<><UpdateVoiture setCarname={setCarname} setCouleur={setCouleur} setMatriculation={setMatriculation}
                                     setDate_of_visit={setDate_of_visit}
                                     setDate_of_next_visit={setDate_of_next_visit}
-                                    onSelectHandle={onSelectHandle} onCarSubmit={onCarSubmit} car={item}  setFilename={setFilename} />))}
+                                    onSelectHandle={onSelectHandle} onCarSubmit={onCarSubmit} car={item}  setFilename={setFilename} />
+                                    {/* <Updateassureur assurer={item.assureurs}  setAsssuranceAgency={setAsssuranceAgency} setAsssuranceAgencyMother={setAsssuranceAgencyMother} setAsssuranceAddress={setAsssuranceAddress} setAsssuranceManager={setAsssuranceManager} setAsssurancePhone={setAsssurancePhone} /> */}
+                                    <UpdateContrat contrat={item.contrat} setOnpause={setOnpause} setContratStart={setContratStart} setContratDuration={setContratDuration} setContratExpire={setContratExpire} />
+                                </>))}
+
                                 {addCarTab}
                                 <div className="">
                                     <div class="m-2 float-end" >

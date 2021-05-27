@@ -15,6 +15,9 @@ import Register from './pages/register';
 import AfficherProfile from './pages/afficherProfile';
 import Results from './pages/results.jsx'
 import AddAdmin from './pages/addAdmin.jsx'
+import Checkout from './pages/checkout'
+import CreateAgence from './pages/createAgence'
+
 
 
 function App() {
@@ -49,6 +52,8 @@ function App() {
        <Route path={'/profil'} component={AfficherProfile}/>
        <Route path={'/result'} component={Results}/>
        <Route path={'/add_admin'} component={AddAdmin}/>
+       <Route path={'/payment'} component={Checkout}/>
+       <Route path={'/create_agence'} component={CreateAgence}/>
      </Switch>
    </Router>
   );

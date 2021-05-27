@@ -26,7 +26,7 @@ export default function TableRow(props) {
                 <td>
                     {props.telephone}</td>
                 <td className="text-center">
-                    <span class="badge badge-pill badge-soft-success font-size-12 ">{props.contacted}</span>
+                    <span class=" ">...</span>
                 </td>
                 
                 <td>

@@ -9,6 +9,13 @@ export default function ModdalProfile(props) {
         }
 
     }
+    const onContratPaused = (item)=>{
+        if(item){
+            return (<span class="badge bg-danger ms-1 align-bottom">oui</span>)
+        }else {
+            return (<span class="badge bg-success ms-1 align-bottom">non</span>)
+        }
+    }
     const onEditClick = () => {
 
         props.history.push({
@@ -34,13 +41,14 @@ export default function ModdalProfile(props) {
                                 <div className='text-center'>
                                     <h5 class="text-center">{props.user.name} {props.user.surname}</h5>
                                     <p class="text-muted mb-1">{props.user.profession} | {props.user.phone_number}</p>
-                                    <p class="text-muted mb-0"></p>
+                                    <p class="text-muted mb-0">{props.user.address}</p>
                                 </div>
                             </div>
                             <div class="card-body border-bottom">
                                 <div>
-                                    {props.user.cars.map((item) => (
-                                        <div class="row">
+                                    {props.user.cars.map((item, index) => (<>
+                                        <div class="row" key={index}>
+                                            <h4>Véhicule assuré</h4>
                                             <div class="col-sm-6">
                                                 <div>
                                                     <p class="text-muted mb-2">{item.name}</p>
@@ -55,7 +63,50 @@ export default function ModdalProfile(props) {
                                                 </div>
                                             </div>
 
-                                        </div>))}
+                                        </div>
+                                        <hr />
+                                         <div class="row">
+                                        <h4>Contrat</h4>
+                                         <div class="col-sm-6">
+                                             <div>
+                                                 <p class="text-muted mb-2">Date de signature</p>
+                                                 <p>Durée du contrat</p>
+                                                 <p>En pause</p>
+                                             </div>
+                                         </div>
+                                         <div class="col-sm-6">
+                                             <div class="text-sm-end mt-4 mt-sm-0">
+                                                 <h5 class="text-muted mb-2">{item.contrat.created_at}</h5>
+                                                 <h5>{item.contrat.duration}</h5>
+                                                 <h5>{onContratPaused(item.contrat.onPaused)}</h5>
+
+                                             </div>
+                                         </div>
+
+                                     </div>
+                                     {/* <hr />
+                                         <div class="row">
+                                        <h5>Information sur l'assurance</h5>
+                                         <div class="col-sm-6">
+                                             <div>
+                                                 <p class="text-muted mb-2">Maison d'assurance</p>
+                                                 <p>Agence assureur</p>
+                                                 <p>Adresse</p>
+                                                 <p>Gérant du compte</p>
+                                             </div>
+                                         </div> */}
+                                         {/* <div class="col-sm-6">
+                                             <div class="text-sm-end mt-4 mt-sm-0">
+                                                 <h6 class="text mb-2">{item.assureurs.agency_mother_name}</h6>
+                                                 <h6>{item.assureurs.agency}</h6>
+                                                 <h6>{item.assureurs.agency_address}</h6>
+                                                 <h6>{item.assureurs.manager}   <br /> Téléphone : <span>{item.assureurs.phone_number}</span></h6>
+
+                                             </div>
+                                         </div> */}
+
+                                     {/* </div> */}
+                                     </>))}
                                 </div>
                             </div>
 

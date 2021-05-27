@@ -7,7 +7,7 @@ export default function SearchComponent(props) {
     const onHandleSubmit = (event)=>{
         event.preventDefault()
         console.log(searchtext + ' submited')
-        axios.get(`users/results/${searchtext}/`).then(res =>{ 
+        axios.get(`assureur/results/${searchtext}/`).then(res =>{ 
             props.history.push({
             pathname : '/result',
             state : {searchData :res.data}

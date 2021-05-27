@@ -1,15 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SearchComponent from './searchComponent'
 
-export default function Header(props) {
-    const store = localStorage.getItem('user')
-    console.log(store)
+export function Header(props) {
+    
+    const store = props.user.user.last_name
+    const logo ="http://127.0.0.1:8000/"+ props.user.assureur.logo
+    console.log(props.user.assureur.logo);
     const onLogout = () => {
         localStorage.clear()
         props.history.push({
             pathname: '/login'
         })
     }
+    const solde =props.user.assureur.solde_sms
     return (
         <div>
             <header id="page-topbar">
@@ -17,13 +21,13 @@ export default function Header(props) {
                     <div class="d-flex">
                         <div class="navbar-brand-box">
                             <a href="home" class="logo logo-dark d-flex pt-1 " className="text-center">
-                                <span class="logo-lg">
+                                {/* <span class="logo-lg">
                                     <img src="assets/images/logo-dark.png" alt="" height="25" />
+                                </span> */}
+                                <span class="logo-lg"> 
+                                    <img src={logo} alt="" height="17" />
+                                    <h1 className="text-center text-uppercase">{props.user.assureur.agency}</h1>
                                 </span>
-                                {/* <span class="logo-lg"> */}
-                                    {/* <img src="assets/images/logo-dark.png" alt="" height="17" /> */}
-                                    {/* <h1 className="text-center">CNSR</h1> */}
-                                    {/* </span> */}
                             </a>
                         </div>
 
@@ -32,6 +36,10 @@ export default function Header(props) {
                         </button>
                         {/* //search code */}
                        <SearchComponent history={props.history} />
+                       <div className="d-flex text-center" style={{alignItems: "center", justifyContent: 'center', marginInline:30}}>
+                           <span >crédit sms : {solde}</span>
+                       </div>
+                       
 
                     </div>
 
@@ -59,15 +67,19 @@ export default function Header(props) {
                                 </form>
                             </div>
                         </div>
+                        
+                       
+                       
 
                         <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                            <button type="button" class="btn header-item " id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
-                                    alt="Header Avatar" />
+                                {/* <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
+                                    alt="Header Avatar" /> */}
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">{store}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
+                            
                             <div class="dropdown-menu dropdown-menu-end">
 
 
@@ -88,3 +100,11 @@ export default function Header(props) {
         </div>
     )
 }
+
+const mapStateToProps = (state)=>{
+    return {
+        user : state.user.user
+    }
+}
+
+export default connect(mapStateToProps)(Header)

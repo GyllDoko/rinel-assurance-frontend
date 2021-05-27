@@ -21,7 +21,7 @@ export default function Register(props) {
                 email: email,
                 password: password
             }
-            axios.post('users/register/', data).then(res => 
+            axios.post('assureur/register/', data).then(res => 
                 {console.log(res)
                 if (res.data.status) {
                      props.history.push({

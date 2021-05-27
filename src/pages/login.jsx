@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 
-export default function Login(props) {
+export  function Login(props) {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [loginError, setLoginError] = useState(false)
@@ -12,19 +13,27 @@ export default function Login(props) {
             email: email,
             password: password
         }
-        axios.post("users/login/", data).then((res) => {
+        axios.post("assureur/login/", data).then((res) => {
             if(res.data.status){
-                let locals = res.data.user.last_name 
-                console.log(locals)
+                console.log(res.data);
+                const action= {
+                    type: "GET_USERS",
+                    value: res.data
+                }
+                props.dispatch(action)
+                let locals = JSON.stringify(res.data.user.user)
                 localStorage.setItem('user', locals)
                 props.history.push({
                     pathname : '/home',
                 })
             }
+
+            else{
+                setLoginError(true)
+            }
         }).catch(error =>{ console.log(error)
         setLoginError(true)})
             
-        console.log(data)
     }
 
     return (
@@ -84,7 +93,7 @@ export default function Login(props) {
                                             
 
                                             <div class="mt-3 d-grid">
-                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
+                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Connexion</button>
                                             </div>
                                             <div>
 
@@ -97,9 +106,9 @@ export default function Login(props) {
                             </div>
                             <div class="mt-5 text-center">
 
-                                <div>
+                                {/* <div>
                                     <p>Vous n'avez pas de compte ? <a href="register" class="fw-medium text-primary"> Enregistrer vous </a> </p>
-                                </div>
+                                </div> */}
                             </div>
 
                         </div>
@@ -109,3 +118,8 @@ export default function Login(props) {
         </div>
     )
 }
+const mapStateToProps =(state)=>{
+    return state
+}
+
+export default connect(mapStateToProps)(Login)

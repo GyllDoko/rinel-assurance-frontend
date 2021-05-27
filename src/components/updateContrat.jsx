@@ -1,28 +1,23 @@
 import React, {useEffect, useState} from 'react'
 import moment from 'moment'
 
-
-
-export default function AjoutContrat(props) {
+export default function UpdateContrat(props) {
     const [prevDate, setPrevDate] = useState(null)
     const [addYear, setAddYear] = useState(null)
     const [expireDate, setExpireDate] = useState(null)
     const [ischeck, setIscheck] = useState(false)
+
 
     useEffect(()=>{
         moment.locale('fr')
         let expire_date = moment(prevDate).add(addYear, 'year').format("YYYY-MM-DD")
         setExpireDate(expire_date)
     },[addYear, prevDate],props.setContratExpire(expireDate),props.setOnpause(ischeck))
-    // useEffect(() => {
-        
-    // },[],props.setOnpause(ischeck))
-
     return (
         <div>
         <div class="row">
             <div class="col-12">
-                        <hr/>
+                        <hr />
                         
                             <div className="row  mb-3" style={{ textAlign: 'start' }}>
                                 <h5>Information concernant le contrat</h5>
@@ -41,18 +36,18 @@ export default function AjoutContrat(props) {
                                 <label for="example-text-input" class="col-md-2 col-form-label">Durée du contrat</label>
                                 <div class="col-md-10">
                                     <input onChange={(e) =>{ props.setContratDuration(e.target.value)
-                                    setAddYear(e.target.value)}} class="form-control" type="number" placeholder="veuillez entrer la durée en décimal"
+                                    setAddYear(e.target.value)}} class="form-control" type="number" placeholder={props.contrat.duration}
                                         id="example-text-input" required />
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="example-date-input" class="col-md-2 col-form-label pt-0">Date d'expiration </label>
                                 <div class="col-md-10">
-                                    <input value={expireDate} class="form-control" type="date"
+                                    <input onChange={(e) => props.setContratExpire(e.target.value)
+                                    } class="form-control" type="date"
                                         id="example-date-input" required />
                                 </div>
                             </div>
-
                             <div class="col-xl-3 col-sm-6">
                                 <div class="mt-4">
                                    
@@ -65,15 +60,12 @@ export default function AjoutContrat(props) {
                                     
                                 </div>
                             </div>
-
-                            
                            
                     </div>
 
 
                 </div>
             </div>
-        
 
     )
 }

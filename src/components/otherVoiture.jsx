@@ -11,12 +11,12 @@ export default function OtherVoiture(props) {
      const onHandlefile =(e)=>{
         let formData = new FormData()
         formData.append('uploadedFile', grey_card)
-        axios.post('users/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setResponseFile(res.data))
+        axios.post('assureur/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setResponseFile(res.data))
     }
     useEffect(() => {
         let formData = new FormData()
         formData.append('uploadedFile', grey_card)
-        axios.post('users/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setResponseFile(res.data))
+        axios.post('assureur/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setResponseFile(res.data))
        
     }, [grey_card], props.setFilename(responseFile))
     useEffect(() => {

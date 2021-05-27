@@ -20,7 +20,7 @@ export default function Banner() {
         // <div style={{ backgroundImage: "url(assets/images/carousel/cnsr.png)", backgroundRepeat: 'no-repeat', width: '100%', height: '50vh', backgroundSize: '100% auto' }}>
         <div style={{width: '100%', height: '50vh', display: 'flex'}} >
             
-            <img className="img-fluid" src="assets/images/carousel/cnsr.png" width= '100%' height= '50%'  alt=""/>
+            <img className="img-fluid" src="assets/images/carousel/assurance.jpg" width= '100%' height= '50%'  alt=""/>
         </div>
         // </div>
         
