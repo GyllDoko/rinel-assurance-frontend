@@ -4,9 +4,13 @@ import Footer from "../components/footer";
 import Sidebar from "../components/sidebar";
 import DisplaysUserTab from "../components/displaysUserTab";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Search(props) {
   const [visitedData, setVisitedData] = useState([]);
+  const [expiredDay, setExpiredDay] = useState(0)
+  const [expiredContratOpen, setExpiredContratOpen] = useState(false)
+
 
   useEffect(() => {
     if (localStorage.getItem("user") === null) {
@@ -15,25 +19,26 @@ export default function Search(props) {
       });
     }
   }, [props.history]);
-  useEffect(() => {
-    let data = props.location.state.data;
-    console.log(data);
-    setVisitedData(data);
-  }, [props.location.state.data]);
+  // useEffect(() => {
+  //   let data = props.location.state.data;
+  //   console.log(data);
+  //   setVisitedData(data);
+  // }, [props.location.state.data]);
 
   const [menuClicked, setMenuClicked] = useState(true);
   const onMenuClicked = () => {
     setMenuClicked(!menuClicked);
   };
-  const onAlarmClicked = (e) => {
-    e.preventDefault();
-    let message = prompt("veuillez indiquer le message à envoyer :");
-    if (window.confirm("Voulez-vous envoyer ce message a tous les abonnés ?")) {
-      axios
-        .post("assureur/visited/", { message: message })
-        .then((res) => alert(res.data));
-    }
-  };
+  const onHandleVisited = (event)=>{
+    event.preventDefault()
+    axios.get(`assureur/contrat_expired/${expiredDay}`).then(res =>{
+
+      console.log(res.data)
+      setVisitedData(res.data)
+      setExpiredContratOpen(true)
+     
+    })}
+ 
 
   return (
     <div>
@@ -42,20 +47,22 @@ export default function Search(props) {
       <div class="main-content">
         <div class="page-content">
           <div class="container-fluid">
-            <div className="row">
-              <div class="text-sm-end">
-                <a
-                  href
-                  onClick={(e) => onAlarmClicked(e)}
-                  type="button"
-                  class="btn btn-danger btn-rounded waves-effect waves-light mb-2 me-2"
-                >
-                  <i class="mdi mdi-alarm me-1"></i> Effectuer un rappel
-                </a>
+            <div className="row d-flex">
+              <div className="col-sm-10">
+              <input
+                onChange={(e) => setExpiredDay(e.target.value)}
+                class="form-control"
+                type="number"
+                placeholder="veuillez entrer la durée en jours"
+                id="example-text-input"
+                required
+              />
               </div>
+              <div className="col-sm-2"><Link onClick={(e)=>{onHandleVisited(e)}} className="btn btn-primary">Rechercher</Link></div>
+              
             </div>
             <div class="row">
-              <DisplaysUserTab history={props.history} tabData={visitedData} />
+              {expiredContratOpen && <DisplaysUserTab history={props.history} tabData={visitedData} />}
             </div>
           </div>
         </div>

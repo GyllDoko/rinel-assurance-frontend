@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
+// import moment from "moment";
 import "moment/locale/fr";
 import axios from "axios";
 
 export default function AjoutVoiture(props) {
-  const [dateOfNext, setDatOfNext] = useState("");
-  const [prevDate, setPrevDate] = useState(null);
+  // const [dateOfNext, setDatOfNext] = useState("");
+  // const [prevDate, setPrevDate] = useState(null);
   const [grey_card, setGrey_card] = useState(null);
   const [responseFile, setResponseFile] = useState("");
   const [verifymat, setVerifymat] = useState(false);
@@ -21,10 +21,13 @@ export default function AjoutVoiture(props) {
       .then((res) => setResponseFile(res.data));
   };
   const verifyMatricul = () => {
-    console.log(matricul);
     axios
       .post("assureur/verify_matricule/", { matricul: matricul })
-      .then((res) => setVerifymat(true));
+      .then((res) =>{
+        if(res.data){
+          setVerifymat(true)
+        } 
+        });
   };
   useEffect(
     () => {
@@ -39,27 +42,25 @@ export default function AjoutVoiture(props) {
     [grey_card],
     props.setFilename(responseFile)
   );
-  useEffect(
-    () => {
-      // if(ref.current){
-      //     return
-      // }else{
-      moment.locale("fr");
-      setDatOfNext(moment(prevDate).add(1, "y").format("YYYY-MM-DD"));
+  // useEffect(
+  //   () => {
+  //     // if(ref.current){
+  //     //     return
+  //     // }else{
+  //     moment.locale("fr");
+  //     let expire_date = moment(prevDate).add(1, 'year').format("YYYY-MM-DD")
+  //     setDatOfNext(expire_date);
 
-      // }
-    },
-    [prevDate],
-    props.setDate_of_next_visit(dateOfNext)
-  );
+  //     // }
+  //   },
+  //   [prevDate],
+  //   props.setDate_of_next_visit(dateOfNext)
+  // );
 
-  const onDateChange = (e) => {
-    setPrevDate(e.target.value);
-  };
+  
 
   return (
     <>
-      <hr mt-2 />
       <div className="row  mb-3" style={{ textAlign: "start" }}>
         <h5>Information concernant son véhicule</h5>
       </div>
@@ -152,7 +153,7 @@ export default function AjoutVoiture(props) {
           />
         </div>
       </div>
-      <div class="mb-3 row">
+      {/* <div class="mb-3 row">
         <label for="example-date-input" class="col-md-2 col-form-label pt-0">
           Dernière visite
         </label>
@@ -160,7 +161,7 @@ export default function AjoutVoiture(props) {
           <input
             onChange={(e) => {
               props.setDate_of_visit(e.target.value);
-              onDateChange(e);
+              setPrevDate(e.target.value)
             }}
             class="form-control"
             type="date"
@@ -175,9 +176,6 @@ export default function AjoutVoiture(props) {
         </label>
         <div class="col-md-10">
           <input
-            onChange={(e) => {
-              props.setDate_of_next_visit(e.target.value);
-            }}
             class="form-control"
             type="date"
             id="example-date-input"
@@ -198,7 +196,7 @@ export default function AjoutVoiture(props) {
             <option value="0">Non effectué</option>
           </select>
         </div>
-      </div>
+      </div> */}
       {/* <div className="mb-3 row">
                 <button class="btn btn-secondary " onClick={(e) => props.onCarSubmit(e)} >Enregister le véhicule</button>
             </div> */}

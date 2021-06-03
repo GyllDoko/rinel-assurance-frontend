@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default function UpdateVoiture(props) {
-    const [dateOfNext, setDatOfNext] =useState('')
-    const [prevDate, setPrevDate] = useState(null)
+    // const [dateOfNext, setDatOfNext] =useState('')
+    // const [prevDate, setPrevDate] = useState(null)
     const [grey_card, setGrey_card] = useState(null)
     const [responseFile, setResponseFile] = useState("")
 
@@ -19,23 +19,23 @@ export default function UpdateVoiture(props) {
         axios.post('assureur/saveFile',formData, {headers:{'Content-type': "multipart/form-data"}}).then(res => setResponseFile(res.data))
        
     }, [grey_card], props.setFilename(responseFile))
-    useEffect(() => {
-        // if(ref.current){
-        //     return
-        // }else{
-        moment.locale('fr') 
-        setDatOfNext(moment(prevDate).add(1, 'y').format("YYYY-MM-DD"))
+    // useEffect(() => {
+    //     // if(ref.current){
+    //     //     return
+    //     // }else{
+    //     moment.locale('fr') 
+    //     setDatOfNext(moment(prevDate).add(1, 'y').format("YYYY-MM-DD"))
         
           
-        // }
+    //     // }
        
       
-    },[prevDate,], props.setDate_of_next_visit(dateOfNext))
+    // },[prevDate,], props.setDate_of_next_visit(dateOfNext))
 
    
-    const onDateChange = (e)=>{
-        setPrevDate(e.target.value)
-    }
+    // const onDateChange = (e)=>{
+    //     setPrevDate(e.target.value)
+    // }
     return (
         <>
         <hr mt-2 />
@@ -72,7 +72,7 @@ export default function UpdateVoiture(props) {
                     </div>
                 
             </div>
-            <div class="mb-3 row">
+            {/* <div class="mb-3 row">
                 <label for="example-date-input" class="col-md-2 col-form-label pt-0">Dernière visite</label>
                 <div class="col-md-10">
                     <input  onChange={(e) =>{ props.setDate_of_visit(e.target.value)
@@ -97,7 +97,7 @@ export default function UpdateVoiture(props) {
                         <option value="0">Non effectué</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
             {/* <div className="mb-3 row">
                     <button class="btn btn-secondary " onClick={(e)=> props.onCarSubmit(e)}>Enregister le véhicule</button>
             </div> */}

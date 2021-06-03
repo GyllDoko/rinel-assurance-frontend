@@ -10,7 +10,7 @@ export default function UpdateContrat(props) {
 
     useEffect(()=>{
         moment.locale('fr')
-        let expire_date = moment(prevDate).add(addYear, 'year').format("YYYY-MM-DD")
+        let expire_date = moment(prevDate).add(addYear, 'days').format("YYYY-MM-DD")
         setExpireDate(expire_date)
     },[addYear, prevDate],props.setContratExpire(expireDate),props.setOnpause(ischeck))
     return (
@@ -25,10 +25,18 @@ export default function UpdateContrat(props) {
                             <div class="mb-3 row">
                                 <label for="example-date-input" class="col-md-2 col-form-label pt-0">Date de souscription</label>
                                 <div class="col-md-10">
+                                    <input onChange={(e) =>{ props.setSubscribeDate(e.target.value)}
+                                    } class="form-control" type="date"
+                                        id="example-date-input" required />
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="example-date-input" class="col-md-2 col-form-label pt-0">Date de début</label>
+                                <div class="col-md-10">
                                     <input onChange={(e) =>{ props.setContratStart(e.target.value)
                                     setPrevDate(e.target.value)}
                                     } class="form-control" type="date"
-                                        id="example-date-input" required />
+                                        id="example-date-input"  />
                                 </div>
                             </div>
 
@@ -36,8 +44,8 @@ export default function UpdateContrat(props) {
                                 <label for="example-text-input" class="col-md-2 col-form-label">Durée du contrat</label>
                                 <div class="col-md-10">
                                     <input onChange={(e) =>{ props.setContratDuration(e.target.value)
-                                    setAddYear(e.target.value)}} class="form-control" type="number" placeholder={props.contrat.duration}
-                                        id="example-text-input" required />
+                                    setAddYear(e.target.value -1)}} class="form-control" type="number" placeholder={props.contrat.duration}
+                                        id="example-text-input"  />
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -45,7 +53,7 @@ export default function UpdateContrat(props) {
                                 <div class="col-md-10">
                                     <input onChange={(e) => props.setContratExpire(e.target.value)
                                     } class="form-control" type="date"
-                                        id="example-date-input" required />
+                                        id="example-date-input" value={expireDate} />
                                 </div>
                             </div>
                             <div class="col-xl-3 col-sm-6">

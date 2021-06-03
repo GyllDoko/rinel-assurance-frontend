@@ -4,6 +4,7 @@ import Footer from "../components/footer";
 import Sidebar from "../components/sidebar";
 import axios from 'axios'
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 export function Checkout(props) {
@@ -38,6 +39,7 @@ export function Checkout(props) {
   const [RecuFile, setRecuFile] = useState(null);
   const [transationID, setTransationID] = useState(0);
   const [filename, setFilename] = useState("")
+  const [redirectToPayment, setRedirectToPayment] = useState(false)
 
   useEffect(
     () => {
@@ -215,20 +217,22 @@ export function Checkout(props) {
                                     for="billing-name"
                                     class="col-md-2 col-form-label"
                                   >
-                                    Nombre
+                                    Nombre de sms
                                   </label>
-                                  <div class="col-md-10">
+                                  <div class="col-md-10 d-flex">
                                     <input
                                       type="number"
                                       onChange={(e) => onHandlePrice(e)}
                                       class="form-control"
                                       id="billing-name"
-                                      placeholder="Entrer le montant voulu"
+                                      placeholder="Entrer le nombre de sms voulu"
                                     />
+                                    <Link onClick={()=> setRedirectToPayment(true)} className="btn btn-primary mx-2" to="#v-pills-payment">valider</Link>
                                   </div>
                                 </div>
                               </form>
                             </div>
+                            {redirectToPayment && <p className="text-center text-info">Veuillez cliquez sur l'onglet paiement pour continuer.</p>}
                           </div>
                           <div
                             class="tab-pane fade"

@@ -17,6 +17,9 @@ import Results from './pages/results.jsx'
 import AddAdmin from './pages/addAdmin.jsx'
 import Checkout from './pages/checkout'
 import CreateAgence from './pages/createAgence'
+import  Editcar  from './pages/editcar';
+import  AddCar  from './pages/addcar';
+import EditContrat from './pages/editContrat';
 
 
 
@@ -43,17 +46,20 @@ function App() {
    <Router>
      <Switch>
        <Route exact path={"/"} component={Login} />
-       <Route path={"/home"} component={Home}/>
-       <Route path={"/login"} component={Login}/>
-       <Route path={"/register"} component={Register}/>
-       <Route path={"/search"} component={Search}/>
-       <Route path={'/add'} component={AddUser}/>
-       <Route path={'/edit'} component={Edit}/>
-       <Route path={'/profil'} component={AfficherProfile}/>
-       <Route path={'/result'} component={Results}/>
-       <Route path={'/add_admin'} component={AddAdmin}/>
-       <Route path={'/payment'} component={Checkout}/>
-       <Route path={'/create_agence'} component={CreateAgence}/>
+       <Route exact path={"/home"} component={Home}/>
+       <Route exact path={"/login"} component={Login}/>
+       <Route exact path={"/register"} component={Register}/>
+       <Route exact path={"/search"} component={Search}/>
+       <Route exact path={'/add'} component={AddUser}/>
+       <Route exact path={'/edit'} component={Edit}/>
+       <Route exact path={'/profil'} component={AfficherProfile}/>
+       <Route exact path={'/result'} component={Results}/>
+       <Route exact path={'/add_admin'} component={AddAdmin}/>
+       <Route exact path={'/payment'} component={Checkout}/>
+       <Route exact path={'/create_agence'} component={CreateAgence}/>
+       <Route exact path={"/edit_car"} component={Editcar}/>
+       <Route exact path={"/add_car"} component={AddCar}/>
+       <Route exact path={"/edit_contrat"} component={EditContrat}/>
      </Switch>
    </Router>
   );

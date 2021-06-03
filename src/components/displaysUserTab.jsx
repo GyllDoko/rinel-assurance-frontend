@@ -5,7 +5,6 @@ import { useReactToPrint } from "react-to-print";
 import { connect } from "react-redux";
 
 export function DisplaysUserTab(props) {
-
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -18,11 +17,23 @@ export function DisplaysUserTab(props) {
       if (
         window.confirm("Voulez-vous envoyer ce message a tous les abonnés ?")
       ) {
-        var data = { message: message, sender_id: props.agence.sender_id, agence : props.agence };
-        axios.post("assureur/communique/",data).then((res) => alert(res.data));
+        var data = {
+          message: message,
+          sender_id: props.agence.sender_id,
+          agence: props.agence,
+        };
+        axios.post("assureur/communique/", data).then((res) => {
+          alert(res.data.message);
+          var action = {
+            type: "UPDATE_SOLDE",
+            value: res.data.minus,
+          };
+          props.dispatch(action);
+        });
       }
     }
   };
+  
   return (
     <div style={{ marginTop: "20px" }}>
       <div class="row">
@@ -71,11 +82,10 @@ export function DisplaysUserTab(props) {
                     <tr className="text-center">
                       <th class="align-middle">No</th>
                       <th class="align-middle">Nom</th>
-                      <th class="align-middle">Prénom</th>
+                      <th class="align-middle">Prénoms</th>
                       <th class="align-middle">Téléphone</th>
-                      <th class="align-middle">...</th>
-                      <th class="align-middle">Voir plus</th>
-                      <th class="align-middle">Editer</th>
+                      <th class="align-middle">Profession </th>
+                      <th class="align-middle">Date de souscription</th>
                     </tr>
                   </thead>
 
@@ -95,6 +105,7 @@ export function DisplaysUserTab(props) {
                   </tbody>
                 </table>
               </div>
+             
             </div>
           </div>
         </div>

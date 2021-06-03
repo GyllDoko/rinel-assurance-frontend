@@ -4,26 +4,11 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import DisplaysUserTab from "../components/displaysUserTab";
 import Sidebar from "../components/sidebar";
-import axios from "axios";
 
 import { connect } from "react-redux";
 
 export const Home = (props) => {
-  const [accounttable, setAccounttable] = useState([]);
-  const accountsTab = props.accounts;
-  const addAccountToHome = () => {
-    let data = [];
-    console.log(data);
-    for (let item of accountsTab) {
-      if (item.accounts.length !== 0) {
-        data.push(...item.accounts);
-      }
-    }
-    console.log(data);
-    accounttable.push(...data);
-  };
 
-  const [tabData, setTabData] = useState([]);
   useEffect(() => {
     if (localStorage.getItem("user") === null) {
       props.history.push({
@@ -31,17 +16,13 @@ export const Home = (props) => {
       });
     }
   }, [props.history]);
-  useEffect(() => {
-    addAccountToHome();
-    setTabData(accounttable);
-  }, [accounttable]);
+ 
 
   const history = props.history;
   const [menuClicked, setMenuClicked] = useState(true);
   const onMenuClicked = () => {
     setMenuClicked(!menuClicked);
   };
- 
 
   return (
     <div>
@@ -53,7 +34,7 @@ export const Home = (props) => {
             <div class="row">
               <Banner />
                 
-              <DisplaysUserTab history={history} tabData={tabData} />
+              <DisplaysUserTab history={history} tabData={props.user_accounts} />
             </div>
           </div>
         </div>
@@ -67,6 +48,8 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     accounts: state.user.accounts,
+    user_accounts: state.user.user_accounts
+
   };
 };
 

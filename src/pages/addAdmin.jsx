@@ -211,9 +211,9 @@ export function AddAdmin(props) {
                     ) : (
                       <></>
                     )}
-                    <div class="mt-4 d-grid">
+                    <div class="mt-4 ">
                       <button
-                        class="btn btn-primary waves-effect waves-light"
+                        class="btn btn-primary waves-effect waves-light float-end"
                         type="submit"
                       >
                         Enregistrer

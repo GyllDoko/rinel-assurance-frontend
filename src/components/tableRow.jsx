@@ -1,4 +1,6 @@
+import moment from 'moment'
 import React from 'react'
+import '../css/tablerow.css'
 
 export default function TableRow(props) {
     const onViewClick =()=>{
@@ -7,17 +9,11 @@ export default function TableRow(props) {
             state : {cars: props.user}
         })
     }
-    const onEditClick =()=>{
-       
-        props.history.push({
-            pathname: '/edit',
-            state : {user: props.user}
-        })
-    }
-   
+    const user= props.user
     return (
         <>
-            <tr>
+            <tr onClick={onViewClick} style={{cursor: 'pointer'}}  className="">
+                
 
                 <td><a href class="text-body fw-bold">{props.id}</a> </td>
                 <td>{props.name}</td>
@@ -26,21 +22,14 @@ export default function TableRow(props) {
                 <td>
                     {props.telephone}</td>
                 <td className="text-center">
-                    <span class=" ">...</span>
+                    <span class=" ">{user.profession}</span>
                 </td>
                 
-                <td>
-                <td className="d-flex justify-content-center"> <button onClick={()=> onViewClick()}
-                    class="btn btn-primary btn-sm btn-rounded waves-effect waves-light"
-                    >
-                    Voir Details</button> </td>
+                
+                <td className="text-center"> 
+                    <span class=" ">{moment(user.timestamp).calendar() }</span>
                 </td>
-                <td>
-                    <div class="d-flex justify-content-center gap-3">
-                        <a href="edit" onClick={()=> onEditClick()} class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                       
-                    </div>
-                </td>
+               
             </tr>
            
         </>

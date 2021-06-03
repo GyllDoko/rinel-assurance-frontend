@@ -5,15 +5,15 @@ import SearchComponent from './searchComponent'
 export function Header(props) {
     
     const store = props.user.user.last_name
-    const logo ="http://127.0.0.1:8000/"+ props.user.assureur.logo
-    console.log(props.user.assureur.logo);
+    const logo ="http://127.0.0.1:8000"+ props.user.assureur.logo
     const onLogout = () => {
         localStorage.clear()
         props.history.push({
             pathname: '/login'
         })
     }
-    const solde =props.user.assureur.solde_sms
+    const solde =props.solde
+    console.log(props);
     return (
         <div>
             <header id="page-topbar">
@@ -25,8 +25,8 @@ export function Header(props) {
                                     <img src="assets/images/logo-dark.png" alt="" height="25" />
                                 </span> */}
                                 <span class="logo-lg"> 
-                                    <img src={logo} alt="" height="17" />
-                                    <h1 className="text-center text-uppercase">{props.user.assureur.agency}</h1>
+                                    <img src={logo} alt="" height="50" />
+                                    <h6 className="text-center text-uppercase">{props.user.assureur.agency}</h6>
                                 </span>
                             </a>
                         </div>
@@ -103,7 +103,9 @@ export function Header(props) {
 
 const mapStateToProps = (state)=>{
     return {
-        user : state.user.user
+        user : state.user.user,
+        solde : state.credit
+        
     }
 }
 
