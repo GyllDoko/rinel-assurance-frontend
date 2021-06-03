@@ -42,13 +42,13 @@ export function Login(props) {
         setLoginError(true);
       });
   };
-  useEffect(() => {
-    if (localStorage.getItem("user") !== null) {
-      props.history.push({
-        pathname: "/home",
-      });
-    }
-  }, [props.history]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("user") !== null) {
+  //     props.history.push({
+  //       pathname: "/home",
+  //     });
+  //   }
+  // }, [props.history]);
 
   return (
     <div>
