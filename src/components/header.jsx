@@ -13,7 +13,6 @@ export function Header(props) {
         })
     }
     const solde =props.solde
-    console.log(props);
     return (
         <div>
             <header id="page-topbar">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
@@ -160,9 +160,7 @@ export function Login(props) {
                 </div>
               </div>
               <div class="mt-5 text-center">
-                {/* <div>
-                                    <p>Vous n'avez pas de compte ? <a href="register" class="fw-medium text-primary"> Enregistrer vous </a> </p>
-                                </div> */}
+                
               </div>
             </div>
           </div>

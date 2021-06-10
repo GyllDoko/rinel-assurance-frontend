@@ -20,6 +20,7 @@ import CreateAgence from './pages/createAgence'
 import  Editcar  from './pages/editcar';
 import  AddCar  from './pages/addcar';
 import EditContrat from './pages/editContrat';
+import  AlarmProgrammer  from './pages/alarmProgrammer';
 
 
 
@@ -60,6 +61,7 @@ function App() {
        <Route exact path={"/edit_car"} component={Editcar}/>
        <Route exact path={"/add_car"} component={AddCar}/>
        <Route exact path={"/edit_contrat"} component={EditContrat}/>
+       <Route exact path={"/program"} component={AlarmProgrammer}/>
      </Switch>
    </Router>
   );

@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import ModalInput from './modalInput'
 
 export function Sidebar(props) {
   const [isTaff, setIsTaff] = useState(false)
   const [isDG, setIsDG] = useState(false)
-  // const [expiredContratOpen, setExpiredContratOpen] = useState(false)
-  // const [expiredDay, setExpiredDay] = useState(0)
+  const [modalShow, setModalShow] = useState(false);
+  const [modalText, setModalText] = useState("")
 
 
   useEffect(() => {
@@ -33,26 +34,34 @@ export function Sidebar(props) {
       })
     }
   
-  const onAlarmClicked = (e) => {
-    e.preventDefault();
-
-    let message = prompt("veuillez indiquer le message à envoyer :");
-    if (message) {
-      if (
-        window.confirm("Voulez-vous envoyer ce message a tous les abonnés ?")
-      ) {
-        var data = { message: message, sender_id: props.agence.sender_id, agence: props.agence };
-        axios.post("assureur/communique/", data).then((res) => {
-          alert(res.data.message)
-          var action = {
-            type: 'UPDATE_SOLDE',
-            value: res.data.minus
-          }
-          props.dispatch(action)
-        });
+    const onAlarmClicked = (e) => {
+      e.preventDefault();
+  
+      let message = modalText
+      if (message) {
+        if (
+          window.confirm("Voulez-vous envoyer ce message a tous les abonnés ?")
+        ) {
+          setModalShow(false)
+          var data = {
+            message: message,
+            sender_id: props.agence.sender_id,
+            agence: props.agence,
+          };
+          axios.post("assureur/communique/", data).then((res) => {
+            
+            
+            var action = {
+              type: "UPDATE_SOLDE",
+              value: res.data.minus,
+            };
+            props.dispatch(action);
+            return (alert(res.data.message))
+          });
+        }
       }
-    }
-  };
+    };
+  
   return (
     <div class="vertical-menu">
       <div data-simplebar class="h-100">
@@ -73,7 +82,7 @@ export function Sidebar(props) {
             </li>}
             {!isTaff && <li>
               <a href="add" class="waves-effect">
-                <i class="bx bxs-user-check"></i>
+                <i class="bx bxs-user-plus"></i>
                 <span >Ajouter un client</span>
               </a>
             </li>}
@@ -86,9 +95,8 @@ export function Sidebar(props) {
                   onHandleVisited(e)
                   // setExpiredContratOpen(!expiredContratOpen)
                   }}>
-                <i class="bx bxs-user-check"></i>
+                <i class="bx bxs-receipt"></i>
                 <span >Voir les contrats expirant</span>
-                <i class="bx bx-chevron-down ms-1"></i>
               </a>
               {/* <Collapse in={expiredContratOpen}>
                 <ul id="menu-item">
@@ -120,15 +128,21 @@ export function Sidebar(props) {
 
           {!isTaff && <li>
             <a href="/payment" class="waves-effect">
-              <i class="bx bxs-lock-alt"></i>
+              <i class="bx bxs-cart"></i>
               <span >Créditer le compte</span>
+            </a>
+          </li>}
+          {!isTaff && <li>
+            <a href="/program" class="waves-effect">
+              <i class="bx bxs-book-bookmark"></i>
+              <span >Programmer un comuniniquer</span>
             </a>
           </li>}
           {!isTaff && <li>
 
             <a
               href
-              onClick={(e) => onAlarmClicked(e)}
+              onClick={(e) => setModalShow(true)}
               type="button"
               class="waves-effect text-center"
             >
@@ -138,6 +152,8 @@ export function Sidebar(props) {
 
           </li>}
           </ul>
+          <ModalInput show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
+
 
         <a href onClick={() => onLogout()} class="waves-effect " style={{ position: 'absolute', bottom: 10, right: 20, color: 'red' }}>
           <i class="bx bxs-lock-alt"></i>

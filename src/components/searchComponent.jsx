@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 
-export default function SearchComponent(props) {
+export function SearchComponent(props) {
     const [searchtext, setSearchtext] = useState("")
 
     const onHandleSubmit = (event)=>{
         event.preventDefault()
         console.log(searchtext + ' submited')
-        axios.get(`assureur/results/${searchtext}/`).then(res =>{ 
+        axios.get(`assureur/results/${searchtext}/${props.user.assureur.id}`).then(res =>{ 
             props.history.push({
             pathname : '/result',
             state : {searchData :res.data}
@@ -27,3 +28,9 @@ export default function SearchComponent(props) {
         </>
     )
 }
+const mapStateToProps =(state)=> {
+    return {
+        user: state.user.user,
+      };
+}
+export default connect(mapStateToProps)(SearchComponent)

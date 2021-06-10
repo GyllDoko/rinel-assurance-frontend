@@ -137,6 +137,8 @@ const ModdalAjout = (props) => {
     //     phone_number: asssurancePhone
     // }
     let contratData = {
+      asureur_id: props.user.assureur.id,
+      account_id: accountResponseId,
       car_id: carResponseId,
       subscribe: subscribeDate,
       start: contratStart,

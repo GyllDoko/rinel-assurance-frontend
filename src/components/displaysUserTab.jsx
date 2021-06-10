@@ -3,37 +3,44 @@ import TableRow from "../components/tableRow";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 import { connect } from "react-redux";
+import ModalInput from "./modalInput";
+import { useState } from "react";
 
 export function DisplaysUserTab(props) {
   const componentRef = useRef();
+  const [modalShow, setModalShow] = useState(false);
+  const [modalText, setModalText] = useState("")
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
   const onAlarmClicked = (e) => {
     e.preventDefault();
 
-    let message = prompt("veuillez indiquer le message à envoyer :");
+    let message = modalText
     if (message) {
       if (
         window.confirm("Voulez-vous envoyer ce message a tous les abonnés ?")
       ) {
+        setModalShow(false)
         var data = {
           message: message,
           sender_id: props.agence.sender_id,
           agence: props.agence,
         };
         axios.post("assureur/communique/", data).then((res) => {
-          alert(res.data.message);
+          
+          
           var action = {
             type: "UPDATE_SOLDE",
             value: res.data.minus,
           };
           props.dispatch(action);
+          return (alert(res.data.message))
         });
       }
     }
   };
-  
+
   return (
     <div style={{ marginTop: "20px" }}>
       <div class="row">
@@ -46,7 +53,7 @@ export function DisplaysUserTab(props) {
                   <div class="text-sm-end">
                     <a
                       href
-                      onClick={(e) => onAlarmClicked(e)}
+                      onClick={(e) => setModalShow(true)}
                       type="button"
                       class="btn btn-warning btn-rounded waves-effect waves-light mb-2 me-2"
                     >
@@ -105,7 +112,7 @@ export function DisplaysUserTab(props) {
                   </tbody>
                 </table>
               </div>
-             
+              <ModalInput show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
             </div>
           </div>
         </div>
