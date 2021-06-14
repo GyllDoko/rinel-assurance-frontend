@@ -5,7 +5,8 @@ import SearchComponent from './searchComponent'
 export function Header(props) {
     
     const store = props.user.user.last_name
-    const logo ="http://127.0.0.1:8000"+ props.user.assureur.logo
+    // const logo ="http://127.0.0.1:8000"+ props.user.assureur.logo
+    const logo = "https://rinel-assur-back.herokuapp.com/"+ props.user.assureur.logo
     const onLogout = () => {
         localStorage.clear()
         props.history.push({
