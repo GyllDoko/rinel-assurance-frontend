@@ -40,7 +40,8 @@ export default function ModalInput(props) {
           
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={(e)=>props.onHide(e)}>Envoyer</Button>
+        <Button onClick={(e)=>props.onHide(e)}>Envoyer</Button>
+          <a className="btn btn-danger" href onClick={()=>props.setModalShow(false)}>Envoyer</a>
         </Modal.Footer>
       </Modal>
   

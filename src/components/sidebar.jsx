@@ -152,7 +152,7 @@ export function Sidebar(props) {
 
           </li>}
           </ul>
-          <ModalInput show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
+          <ModalInput setModalShow={setModalShow} show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
 
 
         <a href onClick={() => onLogout()} class="waves-effect " style={{ position: 'absolute', bottom: 10, right: 20, color: 'red' }}>

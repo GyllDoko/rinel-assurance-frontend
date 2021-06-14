@@ -112,7 +112,7 @@ export function DisplaysUserTab(props) {
                   </tbody>
                 </table>
               </div>
-              <ModalInput show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
+              <ModalInput setModalShow={setModalShow} show={modalShow} onHide={onAlarmClicked} setModalText={setModalText} />
             </div>
           </div>
         </div>

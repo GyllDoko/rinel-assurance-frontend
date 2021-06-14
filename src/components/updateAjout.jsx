@@ -59,7 +59,6 @@ const UpdateAjout = (props) => {
   //   setCarData(updateCarData);
   //   console.log(cardata);
   // };
-  console.log(userEdit);
   const handleSubmit = (event) => {
     event.preventDefault();
     // let assuranceData = {
