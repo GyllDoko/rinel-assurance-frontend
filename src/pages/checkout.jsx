@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Sidebar from "../components/sidebar";
-import axios from 'axios'
+import axios from "axios";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
 
 export function Checkout(props) {
   useEffect(() => {
@@ -15,10 +14,9 @@ export function Checkout(props) {
       });
     }
   }, [props.history]);
-  
 
   const GSM_NUMBER = {
-    mtn: { num: 97979797, logo: "assets/images/gsmlogo/mtn.png" },
+    mtn: { num: 51773962, logo: "assets/images/gsmlogo/mtn.png" },
     moov: {
       num: 95959595,
       logo: "assets/images/gsmlogo/Logo-Moov-Africa_Logo-Moov-AFrica_Blanc.png",
@@ -38,21 +36,18 @@ export function Checkout(props) {
   const [bsicClicked, setBsicClicked] = useState(false);
   const [RecuFile, setRecuFile] = useState(null);
   const [transationID, setTransationID] = useState(0);
-  const [filename, setFilename] = useState("")
-  const [redirectToPayment, setRedirectToPayment] = useState(false)
+  const [filename, setFilename] = useState("");
+  const [redirectToPayment, setRedirectToPayment] = useState(false);
 
-  useEffect(
-    () => {
-      let formData = new FormData();
-      formData.append("uploadedFile", RecuFile);
-      axios
-        .post("assureur/saveFile", formData, {
-          headers: { "Content-type": "multipart/form-data" },
-        })
-        .then((res) => setFilename(res.data));
-    },
-    [RecuFile],
-  );
+  useEffect(() => {
+    let formData = new FormData();
+    formData.append("uploadedFile", RecuFile);
+    axios
+      .post("assureur/saveFile", formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then((res) => setFilename(res.data));
+  }, [RecuFile]);
   const onHandleBsicCilcked = (e) => {
     e.preventDefault();
     setBsicClicked(true);
@@ -98,45 +93,45 @@ export function Checkout(props) {
       alert("Veuillez entrer un nombre valide. Ex: 5000");
     }
   };
-  const onSaveRecu = (e)=>{
-      e.preventDefault()
-      let formData = new FormData();
-      formData.append("uploadedFile", RecuFile);
-      axios
-        .post("assureur/saveFile", formData, {
-          headers: { "Content-type": "multipart/form-data" },
-        }).then(res => setFilename(res.data))
-  }
+  const onSaveRecu = (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("uploadedFile", RecuFile);
+    axios
+      .post("assureur/saveFile", formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then((res) => setFilename(res.data));
+  };
   const onCheckout = (e) => {
     e.preventDefault();
     if (transationID !== 0) {
       var data = {
         credit: credit,
         agency: props.agence.agency,
-        transactionId: transationID
+        transactionId: transationID,
       };
-      axios.post("assureur/credit_request_momo/", data).then(res => {
-        console.log(res)
-        alert(res.data)
+      axios.post("assureur/credit_request_momo/", data).then((res) => {
+        console.log(res);
+        alert(res.data);
         props.history.push({
-          pathname: '/home'
-        })
-      })
+          pathname: "/home",
+        });
+      });
     } else if (RecuFile !== null) {
       var recudata = {
         credit: credit,
         agency: props.agence,
-        filename: filename
+        filename: filename,
       };
 
-      axios.post("assureur/credit_request_bancaire/", recudata).then(res => {
-        console.log(res)
-        alert(res.data)
+      axios.post("assureur/credit_request_bancaire/", recudata).then((res) => {
+        console.log(res);
+        alert(res.data);
         props.history.push({
-          pathname: '/home'
-        })
-      })
-        
+          pathname: "/home",
+        });
+      });
     }
   };
   return (
@@ -227,12 +222,23 @@ export function Checkout(props) {
                                       id="billing-name"
                                       placeholder="Entrer le nombre de sms voulu"
                                     />
-                                    <Link onClick={()=> setRedirectToPayment(true)} className="btn btn-primary mx-2" to="#v-pills-payment">valider</Link>
+                                    <Link
+                                      onClick={() => setRedirectToPayment(true)}
+                                      className="btn btn-primary mx-2"
+                                      to="#v-pills-payment"
+                                    >
+                                      valider
+                                    </Link>
                                   </div>
                                 </div>
                               </form>
                             </div>
-                            {redirectToPayment && <p className="text-center text-info">Veuillez cliquez sur l'onglet paiement pour continuer.</p>}
+                            {redirectToPayment && (
+                              <p className="text-center text-info">
+                                Veuillez cliquez sur l'onglet paiement pour
+                                continuer.
+                              </p>
+                            )}
                           </div>
                           <div
                             class="tab-pane fade"
@@ -287,9 +293,11 @@ export function Checkout(props) {
                                   <>
                                     <div className="mt-2">
                                       <p>
-                                        Veuillez envoyer <b className='mx-1'>{price}</b>CFA au
-                                        numéro <b className='mx-1'> {simNumber}</b> puis entrer
-                                        l'id de la transaction
+                                        Veuillez envoyer{" "}
+                                        <b className="mx-1">{price}</b>CFA au
+                                        numéro{" "}
+                                        <b className="mx-1"> {simNumber}</b>{" "}
+                                        puis entrer l'id de la transaction
                                       </p>
                                     </div>
                                     <div className="row my-5 py-5">
@@ -322,12 +330,17 @@ export function Checkout(props) {
                                   <>
                                     <div className="mt-2">
                                       <p>
-                                        Veuillez envoyer <b className='mx-1'>{price}</b> CFA au
+                                        Veuillez envoyer{" "}
+                                        <b className="mx-1">{price}</b> CFA au
                                         <br />
                                         Numéro de compte BSIC :
-                                        <b className='mx-1'> {BSIC.num}</b> <br />
+                                        <b className="mx-1"> {BSIC.num}</b>{" "}
+                                        <br />
                                         Intitulé de compte:
-                                        <b className='mx-1'>{BSIC.intitule}</b> <br />
+                                        <b className="mx-1">
+                                          {BSIC.intitule}
+                                        </b>{" "}
+                                        <br />
                                         puis envoyer la capture du reçu de
                                         banque.
                                       </p>
@@ -341,9 +354,9 @@ export function Checkout(props) {
                                           type="file"
                                           class="form-control"
                                           id="expirydateInput"
-                                          onBlur={(e) =>{
-                                            onSaveRecu(e)
-                                            setRecuFile(e.target.files[0])
+                                          onBlur={(e) => {
+                                            onSaveRecu(e);
+                                            setRecuFile(e.target.files[0]);
                                           }}
                                         />
                                       </div>
