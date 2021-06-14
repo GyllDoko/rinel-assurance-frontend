@@ -79,6 +79,8 @@ export function AddCar(props){
         event.preventDefault();
 
         let contratData = {
+            asureur_id: props.user.assureur.id,
+            account_id: user.id,
             car_id: carResponseId,
             subscribe: subscribeDate,
             start: contratStart,
