@@ -36,7 +36,7 @@ function App() {
    
   }
   useEffect(() => {
-    let userStored = localStorage.getItem('user')
+    let userStored = sessionStorage.getItem('user')
    if(userStored){
      setStore(true)
    }

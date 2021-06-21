@@ -6,7 +6,7 @@ import ModdalProfile from '../components/modalProfile'
 
 export default function AfficherProfile(props) {
     useEffect(() => {
-        if(localStorage.getItem('user')===null){
+        if(sessionStorage.getItem('user')===null){
             props.history.push({
                 pathname: '/login'
             })

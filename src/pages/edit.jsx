@@ -7,7 +7,7 @@ import UpdateAjout from '../components/updateAjout'
 
 export default function Edit(props) {
     useEffect(() => {
-        if(localStorage.getItem('user')===null){
+        if(sessionStorage.getItem('user')===null){
             props.history.push({
                 pathname: '/login'
             })

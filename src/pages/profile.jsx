@@ -5,7 +5,7 @@ import Sidebar from '../components/sidebar'
 
 export default function Profile(props) {
     useEffect(() => {
-        if(localStorage.getItem('user')===null){
+        if(sessionStorage.getItem('user')===null){
             props.history.push({
                 pathname: '/login'
             })

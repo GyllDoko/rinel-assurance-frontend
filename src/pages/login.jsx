@@ -29,7 +29,7 @@ export function Login(props) {
          }
          props.dispatch(payload)
           let locals = JSON.stringify(res.data.user.user);
-          localStorage.setItem("user", locals);
+          sessionStorage.setItem("user", locals);
           props.history.push({
             pathname: "/home",
           });
@@ -43,7 +43,7 @@ export function Login(props) {
       });
   };
   // useEffect(() => {
-  //   if (localStorage.getItem("user") !== null) {
+  //   if (sessionStorage.getItem("user") !== null) {
   //     props.history.push({
   //       pathname: "/home",
   //     });

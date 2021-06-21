@@ -10,7 +10,7 @@ import AjoutContrat from "../components/ajoutContrat";
 
 export function AddCar(props){
     useEffect(() => {
-        if (localStorage.getItem("user") === null) {
+        if (sessionStorage.getItem("user") === null) {
             props.history.push({
                 pathname: "/login",
             });

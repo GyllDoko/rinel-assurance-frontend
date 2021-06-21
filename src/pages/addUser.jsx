@@ -6,7 +6,7 @@ import ModdalAjout from '../components/moddalAjout'
 
 export default function AddUser(props) {
     useEffect(() => {
-        if(localStorage.getItem('user')===null){
+        if(sessionStorage.getItem('user')===null){
             props.history.push({
                 pathname: '/login'
             })

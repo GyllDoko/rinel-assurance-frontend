@@ -10,7 +10,7 @@ import UpdateContrat from "../components/updateContrat";
 
 export function Editcar(props){
     useEffect(() => {
-        if (localStorage.getItem("user") === null) {
+        if (sessionStorage.getItem("user") === null) {
             props.history.push({
                 pathname: "/login",
             });
