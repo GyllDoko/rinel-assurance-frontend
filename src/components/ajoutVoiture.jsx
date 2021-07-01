@@ -6,7 +6,7 @@ import axios from "axios";
 export default function AjoutVoiture(props) {
   // const [dateOfNext, setDatOfNext] = useState("");
   // const [prevDate, setPrevDate] = useState(null);
-  const [grey_card, setGrey_card] = useState(null);
+   const [grey_card, setGrey_card] = useState(null);
   const [responseFile, setResponseFile] = useState("");
   const [verifymat, setVerifymat] = useState(false);
   const [matricul, setMatricul] = useState("");
